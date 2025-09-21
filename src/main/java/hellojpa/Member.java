@@ -1,14 +1,34 @@
 package hellojpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Member {
 
     @Id
     private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    private LocalDate testLocalDate; // 연월
+    private LocalDateTime testLocalDateTime; // 연월일
+
+    @Lob
+    private String description;
+
+    @Transient
+    private int temp;
 
     public Member() {
 
