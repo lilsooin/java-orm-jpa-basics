@@ -1,10 +1,8 @@
 package hellojpa;
 
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 // @SequenceGenerator(
@@ -15,16 +13,18 @@ public class Member {
 
     @Id
     @GeneratedValue
-           // (strategy = GenerationType.SEQUENCE,
-           // generator = "MEMBER_SEQ_GENERATOR")
+    @Column(name = "MEMBER_ID")
+    // (strategy = GenerationType.SEQUENCE,
+    // generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
-
     @Column(name = "name", nullable = false)
     private String name;
+    private String city;
+    private String street;
+    private String zipcode;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -40,13 +40,5 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 }

@@ -15,25 +15,8 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
-            Member member = new Member();
-            member.setName("member1");
-            member.setTeam(team);
-            em.persist(member);
-
-            em.flush();
-            em.clear();
-
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
-
-            for (Member m : members) {
-                System.out.println("m = " + m.getName());
-            }
+           Order order = new Order();
+           order.addOrderItem(new OrderItem());
 
             tx.commit();
         } catch(Exception e) {
