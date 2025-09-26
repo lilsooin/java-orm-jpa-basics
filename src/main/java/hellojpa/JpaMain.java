@@ -15,27 +15,22 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member1 = new Member();
-            member1.setName("member1");
-            em.persist(member1);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            Member member2 = new Member();
-            member2.setName("member2");
-            em.persist(member2);
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
 
             em.flush();
             em.clear();
 
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("refMember = " + refMember.getClass()); // proxy
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
 
-            em.detach(refMember);
-            // em.close();
-
-            refMember.getName();
-            emf.getPersistenceUnitUtil().isLoaded(refMember);
-
-                    tx.commit();
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
