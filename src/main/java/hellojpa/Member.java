@@ -10,6 +10,21 @@ import java.util.List;
 //        sequenceName = "MEMBER_SEQ", // 매핑할 데이터베이스 시퀀스 이름
 //        initialValue = 1, allocationSize = 50)
 public class Member extends BaseEntity {
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     @Id
     @GeneratedValue
@@ -19,9 +34,9 @@ public class Member extends BaseEntity {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
+
+    @Embedded
+    private Address address;
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
