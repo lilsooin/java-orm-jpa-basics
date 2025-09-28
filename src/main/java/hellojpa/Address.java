@@ -11,6 +11,15 @@ public class Address {
     private String street;
     private String zipcode;
 
+    public Address() {
+    }
+
+    public Address(String city, String street, String zipcode) {
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
+
     public String fullAddress() {
         return getCity() + " " + getStreet() + " " + getZipcode();
     }
@@ -38,6 +47,8 @@ public class Address {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
